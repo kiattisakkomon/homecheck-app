@@ -1,1 +1,100 @@
-<!doctype html><meta charset='utf-8'><title>HomeCheck</title><p>Reload if empty.</p>
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>เช็กลิสต์ของใช้เข้าบ้าน</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#b91c1c">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>เช็กลิสต์ของใช้เข้าบ้าน</h1>
+    <button id="installBtn" class="ghost">ติดตั้งในมือถือ</button>
+  </header>
+
+  <section class="toolbar">
+    <input id="search" placeholder="ค้นหารายการ...">
+    <select id="filterStatus">
+      <option value="">ทั้งหมด</option>
+      <option value="ยังไม่ซื้อ">ยังไม่ซื้อ</option>
+      <option value="ซื้อแล้ว">ซื้อแล้ว</option>
+      <option value="อยู่แล้ว">อยู่แล้ว</option>
+    </select>
+    <select id="filterCat"></select>
+    <button id="addBtn">+ เพิ่มรายการ</button>
+  </section>
+
+  <section id="totals" class="totals">
+    <div>รวมทั้งหมด: <b id="sumAll">0</b> บาท</div>
+    <div>ค้างซื้อ: <b id="sumPending">0</b> บาท</div>
+  </section>
+
+  <section id="list" class="list"></section>
+
+  <template id="rowTpl">
+    <details class="group" open>
+      <summary class="groupTitle"></summary>
+      <div class="rows"></div>
+    </details>
+  </template>
+
+  <template id="itemTpl">
+    <article class="item">
+      <label class="check">
+        <input type="checkbox" class="chk">
+        <span></span>
+      </label>
+      <div class="meta">
+        <div class="name"></div>
+        <div class="sub">
+          <span class="qty"></span>
+          <span class="price"></span>
+        </div>
+        <input class="note" placeholder="หมายเหตุ..." />
+      </div>
+      <div class="actions">
+        <select class="status">
+          <option>ยังไม่ซื้อ</option>
+          <option>ซื้อแล้ว</option>
+          <option>อยู่แล้ว</option>
+        </select>
+        <button class="edit">แก้ไข</button>
+        <button class="del">ลบ</button>
+      </div>
+    </article>
+  </template>
+
+  <dialog id="dlg">
+    <form method="dialog" id="form">
+      <h3 id="dlgTitle">เพิ่มรายการ</h3>
+      <label>หมวด <input id="fCategory" required></label>
+      <label>รายการ <input id="fName" required></label>
+      <label>จำนวน <input id="fQty" type="number" min="1" value="1" required></label>
+      <label>ราคา (บาท) <input id="fPrice" type="number" min="0" value="0" required></label>
+      <label>สถานะ
+        <select id="fStatus">
+          <option>ยังไม่ซื้อ</option>
+          <option>ซื้อแล้ว</option>
+          <option>อยู่แล้ว</option>
+        </select>
+      </label>
+      <label>หมายเหตุ <input id="fNote"></label>
+      <menu>
+        <button value="cancel">ยกเลิก</button>
+        <button id="saveBtn" value="default">บันทึก</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <footer class="foot">
+    <button id="exportBtn">ส่งออก (.json)</button>
+    <button id="resetBtn">ล้างข้อมูล (คืนค่าเริ่มต้น)</button>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
